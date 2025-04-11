@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 const fetchAllOrders=async()=>{
-  const response=await fetch("http://localhost:8000/order/all");
+  const response=await fetch(`${import.meta.env.VITE_API_URL}/order/all`);
   if(!response) throw new Error ("Failed to fetch orders");
   const result=await response.json();
   return result.order || result || [];

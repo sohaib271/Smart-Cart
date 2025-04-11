@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useUser from "./userInfo";
 const getCart = async (userId) => {
   if (!userId) return []; 
-  const response = await fetch(`http://localhost:8000/cart/getCart/${userId}`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/cart/getCart/${userId}`);
   const result = await response.json();
   return result || [];
 };

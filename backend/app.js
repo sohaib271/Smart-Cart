@@ -9,7 +9,7 @@ const ReviewRouter=require("./routes/review");
 const ProductRouter=require("./routes/product")
 const OrderRouter=require("./routes/order")
 
-mongoose.connect('mongodb://127.0.0.1:27017/e-commerce')
+mongoose.connect(process.env.MONGODB_URI)
 .then(()=> console.log("Database Connected"));
 
 const app=express();
@@ -31,5 +31,5 @@ app.use("/cart",CartRouter);
 app.use("/review",ReviewRouter);
 
 
-const Port=8000;
+const Port=process.env.PORT || 8000;
 app.listen(Port,()=>console.log("Server Started"));

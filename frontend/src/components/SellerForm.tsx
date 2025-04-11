@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Delay } from "./compoAssis/delay";
 import { useLoading } from "./loading/loading";
 import SpinnerContainer from "./SpinnerContainer";
+import { useSelectedProduct } from "./compoAssis/selectedProduct";
 
 interface SellerFormData {
   name: string;
@@ -19,9 +20,9 @@ interface SellerFormData {
 
 const SellerSignup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<SellerFormData>();
-  const {startLoading,stopLoading,isLoading}=useLoading();
+  const {startLoading,stopLoading}=useLoading();
   const [error,setError]=useState("")
-  const navi=useNavigate();
+  const {navigateToPages}=useSelectedProduct();
 
 
   const onSubmit = async (data: any) => {
@@ -46,7 +47,7 @@ const SellerSignup = () => {
         body: formData,
       });
       const result=await response.json();
-      if(!result.error) setError(""); navi("/log in");
+      if(!result.error) setError(""); navigateToPages("/log in");
     } catch (error) {
       setError(error.message);
     } finally {

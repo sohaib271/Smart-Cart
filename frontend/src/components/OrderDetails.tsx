@@ -35,7 +35,7 @@ const {startLoading,stopLoading,isLoading}=useLoading();
   const updateStatus=async(id,orderStatus)=>{
     startLoading();
     await Delay(3);
-    const response=await fetch(`http://localhost:8000/order/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status:orderStatus})});
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/order/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status:orderStatus})});
     const result=await response.json();
     if(result){
       try {
@@ -85,7 +85,7 @@ const {startLoading,stopLoading,isLoading}=useLoading();
           <div className="flex flex-col md:flex-row justify-between mb-6">
             <div>
               <h2 className="text-xl font-semibold text-blue-900">{reqOrder?.orderTitle}</h2>
-              {(reqOrder?.productIdNumber.createdBy !== user?._id) && <h3 className="text-xl font-semibold text-blue-900">Ordered from : {reqOrder?.orderedFrom}</h3> }
+              {(reqOrder?.productIdNumber.createdBy !== user?._id)? <h3 className="text-xl font-semibold text-blue-900">Ordered from : {reqOrder?.orderedFrom}</h3>:<h3 className="text-xl font-semibold text-blue-900">Ordered By : {reqOrder?.buyerName}</h3> }
               <p className="text-gray-600 text-sm mt-1">Order ID: {reqOrder?._id}</p>
             </div>
             <div className={`mt-4 md:mt-0 px-4 py-2 rounded-full ${statusColors[reqOrder?.orderStatus]} text-sm font-medium flex items-center gap-2`}>

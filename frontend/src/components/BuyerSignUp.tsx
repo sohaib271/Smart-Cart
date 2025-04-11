@@ -3,10 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Delay } from "./compoAssis/delay";
 import SpinnerContainer from "./SpinnerContainer";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
-import { useLoading } from "./loading/loading";
+
 type FormData = {
   name:string,
   email: string;
@@ -21,16 +20,14 @@ const BuyerSignUp: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error,setError]=useState("")
  const {navigateToPages}=useSelectedProduct();
- const {startLoading,stopLoading}=useLoading();
   const onSubmit: SubmitHandler<FormData> =async (data) => {
-    startLoading();
     try {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
       formData.append("password", data.password);
       formData.append("role", "Buyer");  
-      const response = await fetch("http://localhost:8000/user/signup", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/signup`, {
         method: "POST",
         body: formData,
       });
@@ -43,7 +40,6 @@ const BuyerSignUp: React.FC = () => {
     } catch (error) {
       setError("Something went wrong. Please try again.");
     }
-    stopLoading();
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

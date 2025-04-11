@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 const user=async()=>{ 
   const token = localStorage.getItem("token");
   try {
-    const response = await fetch("http://localhost:8000/user/jwt", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/user/jwt`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`

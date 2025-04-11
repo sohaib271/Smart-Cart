@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 const fetchReviews=async()=>{
-  const response=await fetch(`http://localhost:8000/review/allReviews`);
+  const response=await fetch(`${import.meta.env.VITE_API_URL}/review/allReviews`);
   if(!response.ok){
     throw new Error("Failed to fetch reviews");
   }

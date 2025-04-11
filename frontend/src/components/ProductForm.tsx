@@ -114,7 +114,7 @@ const ProductForm = () => {
             <label className="block text-gray-700 mb-1">Price Range</label>
             <div className="flex items-center border rounded p-2">
               <FiTag className="text-gray-500 mr-2" />
-              <select {...register("priceRange")} className="w-full outline-none">
+              <select {...register("priceRange", {required:"Select Range"})} className="w-full outline-none">
                 <option value="">Select Range</option>
                 {priceRange.map(use => <option key={use} value={use}>{use}</option>)}
               </select>
@@ -124,7 +124,7 @@ const ProductForm = () => {
             <label className="block text-gray-700 mb-1">Use Case</label>
             <div className="flex items-center border rounded p-2">
               <FiTag className="text-gray-500 mr-2" />
-              <select {...register("useCase")} className="w-full outline-none">
+              <select {...register("useCase", {required:"Select UseCase"})} className="w-full outline-none">
                 <option value="">Select Use Case</option>
                 {useCases.map(use => <option key={use} value={use}>{use}</option>)}
               </select>
@@ -134,7 +134,7 @@ const ProductForm = () => {
             <label className="block text-gray-700 mb-1">Targeted Audience</label>
             <div className="flex items-center border rounded p-2">
               <FiUser className="text-gray-500 mr-2" />
-              <select {...register("targetedAudience")}  className="w-full outline-none">
+              <select {...register("targetedAudience", {required:"Select targeted audience"})}  className="w-full outline-none">
                 <option value="">Select Audience</option>
                 {audiences.map(audience => <option key={audience} value={audience}>{audience}</option>)}
               </select>

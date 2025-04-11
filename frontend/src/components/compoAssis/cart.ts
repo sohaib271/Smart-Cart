@@ -9,7 +9,7 @@ const useAddCart=()=>{
   const addToCart=async(userId,productId,path)=>{
     startLoading()
     await Delay(2);
-    const response=await fetch(`http://localhost:8000/cart/addToCart`,{method:"POST", headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:productId,userId:userId})});
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/cart/addToCart`,{method:"POST", headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:productId,userId:userId})});
     const result=await response.json();
     if(result.message) navigate(path); stopLoading();
     return result;
