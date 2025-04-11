@@ -1,5 +1,8 @@
 const express=require("express");
 const cors=require("cors");
+const cluster=require("node:cluster");
+const os=require("os");
+const totalCPUs=os.cpus().length;
 const bodyParser = require("body-parser");
 const BuyerRouter=require("./routes/buyer");
 const mongoose=require("mongoose");
@@ -12,7 +15,12 @@ const OrderRouter=require("./routes/order")
 mongoose.connect(process.env.MONGODB_URI)
 .then(()=> console.log("Database Connected"));
 
-const app=express();
+if(cluster.isPrimary){
+  for(let i=0;i<totalCPUs;i++){
+    cluster.fork();
+  }
+}else{
+  const app=express();
 
 app.use(express.json());
 
@@ -33,3 +41,5 @@ app.use("/review",ReviewRouter);
 
 const Port=process.env.PORT || 8000;
 app.listen(Port,()=>console.log("Server Started"));
+}
+
