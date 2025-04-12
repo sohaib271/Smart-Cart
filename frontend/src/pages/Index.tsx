@@ -9,22 +9,19 @@ import Footer from "@/components/Footer";
 import {  useLoading } from "@/components/loading/loading";
 import SpinnerContainer from "@/components/SpinnerContainer";
 
-// We need to include framer-motion for animations
-
-
 const Index = () => {
-  // Smooth scroll to section when clicking on navigation links
+ 
   useEffect(() => {
     const handleSmoothScroll = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
+      if (target.tagName === "A" && target.getAttribute("to")?.startsWith("/")) {
         e.preventDefault();
         const targetId = target.getAttribute("href")?.substring(1);
         const targetElement = document.getElementById(targetId || "");
         
         if (targetElement) {
           window.scrollTo({
-            top: targetElement.offsetTop - 80, // Offset for fixed header
+            top: targetElement.offsetTop - 80, 
             behavior: "smooth"
           });
         }

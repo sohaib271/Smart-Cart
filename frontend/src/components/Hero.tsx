@@ -21,7 +21,7 @@ const Hero = () => {
           <div className={`space-y-8 ${loaded ? 'animate-fade-up' : 'opacity-0'}`}>
             <div className="inline-block animate-fade-in">
               <span className="bg-eshop-blue-100 text-eshop-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full">
-                NEW COLLECTION 2024
+                NEW COLLECTION 2025
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight tracking-tight text-balance">
