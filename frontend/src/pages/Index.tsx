@@ -10,7 +10,7 @@ import {  useLoading } from "@/components/loading/loading";
 import SpinnerContainer from "@/components/SpinnerContainer";
 
 // We need to include framer-motion for animations
- <lov-add-dependency>framer-motion@latest</lov-add-dependency> 
+
 
 const Index = () => {
   // Smooth scroll to section when clicking on navigation links
