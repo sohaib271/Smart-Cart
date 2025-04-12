@@ -16,15 +16,10 @@ import ProductForm from "./components/ProductForm";
 import SellerProductsPage from "./components/SellerProducts";
 import SellerOrdersPage from "./components/SellerOrders";
 import OrderDetailPage from "./components/OrderDetails";
-import SuccessPopup from "./components/OrderPlaced";
 import AdminUsers from "./components/AdminUserManagement";
 import ProductsPage from "./components/SearchBar";
-import { useSelectedProduct } from "./components/compoAssis/selectedProduct";
-import Spinner from "./components/Spinner";
-import { useState } from "react";
-import { LoadingProvider,useLoading } from "./components/loading/loading";
+import { LoadingProvider } from "./components/loading/loading";
 import FeaturedProducts from "./components/FeaturedProducts";
-
 import SupportChat from "./components/customer";
 import AboutUs from "./components/Aboutus";
 import PrivacyPolicy from "./components/PrivacyPolicy";
@@ -58,7 +53,6 @@ const App = () => {
             <Route path="/sellerproducts/:sellerId?" element={<SellerProductsPage/>}/>
             <Route path="/search" element={<ProductsPage/>}/>
             <Route path="/about us" element={<AboutUs/>}/>
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
