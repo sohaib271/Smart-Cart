@@ -137,11 +137,11 @@ const SellerSignup = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700">Payment Method</label>
+            <label className="block text-gray-700">Payment</label>
             <div className="flex items-center border rounded p-2">
               <CreditCard className="text-gray-500 mr-2" />
               <select
-                {...register("paymentMethod", { required: "Payment method is required" })}
+                {...register("paymentMethod", { required: "Payment m is required" })}
                 className="w-full outline-none"
               >
                 <option value="jazzcash">Jazz Cash</option>

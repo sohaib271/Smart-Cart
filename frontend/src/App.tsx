@@ -23,6 +23,8 @@ import FeaturedProducts from "./components/FeaturedProducts";
 import SupportChat from "./components/customer";
 import AboutUs from "./components/Aboutus";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import AccountSuccess from "./components/accSuccess";
+import Connected from "./components/accConnect";
 const queryClient = new QueryClient();
 const App = () => {
   return (
@@ -53,6 +55,8 @@ const App = () => {
             <Route path="/sellerproducts/:sellerId?" element={<SellerProductsPage/>}/>
             <Route path="/search" element={<ProductsPage/>}/>
             <Route path="/about us" element={<AboutUs/>}/>
+            <Route path="/success" element={<AccountSuccess/>}/>
+            <Route path="/connected" element={<Connected/>}/>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

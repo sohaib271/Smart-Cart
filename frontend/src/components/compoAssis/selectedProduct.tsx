@@ -12,9 +12,27 @@ export const useSelectedProduct = () => {
   };
   const navigateToPages=async(path)=>{
     startLoading();
-    await Delay(2); 
+    await Delay(1); 
     navigate(path);
    stopLoading();
-  }
-  return {selectProduct,navigateToPages,isLoading} ;
+  };
+  const handleConnectStripe = async (id) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/stripe/create-connect-account`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: id 
+        }),
+      });
+  
+      const data = await res.json();
+      window.location.href = data.url;
+    } catch (error) {
+      alert('Something went wrong.');
+    }
+  };
+  return {selectProduct,navigateToPages,isLoading,handleConnectStripe};
 };

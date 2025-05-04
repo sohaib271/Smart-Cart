@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 import {  useLoading } from "@/components/loading/loading";
 import SpinnerContainer from "@/components/SpinnerContainer";
 
+
+
 const Index = () => {
  
   useEffect(() => {

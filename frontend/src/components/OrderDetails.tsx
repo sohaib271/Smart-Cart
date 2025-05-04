@@ -194,7 +194,7 @@ const {startLoading,stopLoading,isLoading}=useLoading();
                   Mark as Delivered
                 </button>
               </div>
-            </div>:(reqOrder?.orderStatus ==="waiting")?<p>Once seller shipped your order. You will get it in 3-5 days</p>:reqOrder?.orderStatus ==="delivered"?<p>Thanks for purchasing the product. Happy Shoppping!</p>:reqOrder?.orderStatus==="shipped"?<p className='text-sm'>Your order has been shipped. Please be ready with Rs {total}</p>:null}
+            </div>:(reqOrder?.orderStatus ==="waiting")?<p>Once seller shipped your order. You will get it in 3-5 days</p>:reqOrder?.orderStatus ==="delivered"?<p>Thanks for purchasing the product. Happy Shoppping!</p>:reqOrder?.orderStatus==="shipped" && reqOrder?.status!=="Paid"?<p className='text-sm'>Your order has been shipped. Please be ready with Rs {total}</p>:<p>Your payment is done. The rider is on its way to deliver your order.</p>}
             </div>
           </div>
         </div>

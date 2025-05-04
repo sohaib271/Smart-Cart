@@ -6,12 +6,12 @@ const useAddCart=()=>{
   const [error,setError]=useState("");
   const navigate=useNavigate();
   const {startLoading,isLoading,stopLoading}=useLoading();
-  const addToCart=async(userId,productId,path)=>{
+  const addToCart=async(userId,productId)=>{
     startLoading()
-    await Delay(2);
+    await Delay(1);
     const response=await fetch(`${import.meta.env.VITE_API_URL}/cart/addToCart`,{method:"POST", headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:productId,userId:userId})});
     const result=await response.json();
-    if(result.message) navigate(path); stopLoading();
+    if(result.message) stopLoading();
     return result;
   }
   const addReview=async(productId,userId,review,rating)=>{
@@ -23,6 +23,9 @@ const useAddCart=()=>{
     if(result) stopLoading();
     return result;}
   };
+
+  
+
   return {addToCart,error,isLoading,addReview};
 }
 export default useAddCart;

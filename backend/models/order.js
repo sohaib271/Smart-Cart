@@ -56,6 +56,14 @@ const OrderSchema=new Schema({
   buyerPhoneNo:{
     type:String,
     required:true
+  },
+  cashOnDelivery:{
+    type:Boolean,
+    required:true,
+  },
+  onlinePay:{
+    type:Boolean,
+    required:true,
   }
 },{timestamps:true});
 

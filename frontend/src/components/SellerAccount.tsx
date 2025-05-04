@@ -8,7 +8,7 @@ import SpinnerContainer from "./SpinnerContainer";
 const SellerDashboard: React.FC = () => {
   const {data:user}=useUser();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
- const {navigateToPages}=useSelectedProduct();
+ const {navigateToPages,handleConnectStripe}=useSelectedProduct();
   const storeName: string = user?.role==="Seller" && user?.storeName;
   const {allOrder}=useOrderDetails();
    const myOrders=allOrder?.filter(order => order.productIdNumber.createdBy===user?._id);
@@ -40,8 +40,11 @@ const SellerDashboard: React.FC = () => {
             <FiShoppingCart /> <span>Orders</span>
             {fil?.length > 0 && <span className="absolute -top-2 -right-5 bg-eshop-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{fil?.length}</span>}
           </button>
-          <button onClick={()=>navigateToPages("/sell")} className="flex items-center space-x-2 hover:text-blue-400">
+          <button onClick={() => navigateToPages("/sell")} className="flex items-center space-x-2 hover:text-blue-400">
             <FiShoppingBag /> <span>Add Product</span>
+          </button>
+          <button onClick={() => handleConnectStripe(user?._id)} className="flex items-center space-x-2 hover:text-blue-400">
+            <FiShoppingBag /> <span>Connect Stripe</span>
           </button>
         </nav>
       </div>

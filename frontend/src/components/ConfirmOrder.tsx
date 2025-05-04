@@ -8,7 +8,7 @@ import useAllProducts from "./compoAssis/products";
 import useUser from "./compoAssis/userInfo";
 import { useParams } from "react-router-dom";
 import { useLoading } from "./loading/loading";
-const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number}) => {
+const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>void;}) => {
   const [address, setAddress] = useState("");
   const [phone,setPhone]=useState("");
   const [error, setError] = useState("");
@@ -34,20 +34,23 @@ const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity }: { setIsPopupOpe
     orderPrice: extractedProduct?.price,
     size:selectedSize,
     quantity:quantity,
+    cashOnDelivery:cash,
+    onlinePay:ePay,
   };
 const confirmOrder = async () => {
   if (address.length < 15 || !address.includes(",")) {
       setError("Invalid Address  Format");
     }else {
       startLoading();
-      await Delay(2);
+      await Delay(1);
       const response = await fetch("http://localhost:8000/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(placedOrder),
       });
       const result = await response.json();
-      if (result.status) setOrderConfirmed(true);
+      if (result.status && cash==true) setOrderConfirmed(true);
+      else if(result.status && ePay==true) payForOne();
     }
     stopLoading();
   };

@@ -4,7 +4,6 @@ import { FiImage, FiFileText, FiCreditCard, FiPackage, FiGrid, FiTag, FiUser, Fi
 import { motion } from 'framer-motion';
 import { DollarSign, Phone } from 'lucide-react';
 import useUser from './compoAssis/userInfo';
-import { Delay } from './compoAssis/delay';
 import { useNavigate } from 'react-router-dom';
 import SpinnerContainer from './SpinnerContainer';
 import { useLoading } from './loading/loading';

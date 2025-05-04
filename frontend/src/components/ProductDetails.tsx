@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Star, ShoppingCart, MessageCircle, Truck, PlusCircle, MinusCircle, Ruler } from "lucide-react";
 import { motion } from "framer-motion";
+import {loadStripe} from "@stripe/stripe-js"
 import useAllProducts from "./compoAssis/products";
 import PaymentPopup from "./PayMentmethod";
 import { useParams } from "react-router-dom";
@@ -19,6 +20,42 @@ const ProductDetails = () => {
   const requiredProduct = products?.filter(p => p._id === productId);
   const extractedProduct = requiredProduct?.[0];
   const [quantity, setQuantity] = useState<number>(1); 
+  const productWithQuantity = extractedProduct
+  ? { ...extractedProduct, quantity }
+  : null;
+
+const stripePromise = loadStripe('pk_test_51RKN9FQaNfqZpifiwkctIRdGsfb9fI6mKgFneMbJBbF0kU0ka6KhGnKbV3W44I7DE4W1wQ2hvIIiXIur1MWSd2bp00aDWcD8qK');
+
+  const payForOne=async()=>{
+    try {
+      const stripe = await stripePromise;
+      
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/stripe/payment/1`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({ productWithQuantity }),
+      });
+  
+     
+  
+      const data = await res.json();
+      console.log(data)
+  
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: data.id
+      });
+  
+      if (error) {
+        console.error('Stripe redirect error:', error);
+      }
+      
+    } catch (err) {
+      console.error('Payment error:', err);
+    }
+  }
+
   const [selectedSize, setSelectedSize] = useState<string>((extractedProduct?.category==="Shoes" || extractedProduct?.category==="Clothing")?"Medium":"None"); 
   const review=reviews?.filter(r => r.productId===productId);
   const getSizeLength = (size: string) => {
@@ -36,9 +73,17 @@ const ProductDetails = () => {
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
+
+  const priceConfiguration=()=>{
+    if(productWithQuantity.price * productWithQuantity.quantity <= 700){
+      console.log("Please make purchase above Rs 700.")
+    }else{
+      setIsPopupOpen(user?true:false)
+    }
+  }
   return (
     <>
-      {(isPopupOpen) && <PaymentPopup selectedSize={selectedSize} quantity={quantity} setIsPopupOpen={setIsPopupOpen} />}
+      {(isPopupOpen) && <PaymentPopup payForOne={payForOne} selectedSize={selectedSize} quantity={quantity} setIsPopupOpen={setIsPopupOpen} />}
      <SpinnerContainer/>
       <div className={`min-h-screen ${isPopupOpen && "fixed inset-0"} flex flex-col items-center bg-gray-100 p-4 sm:p-6`}>
         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl flex flex-col md:flex-row">
@@ -93,7 +138,7 @@ const ProductDetails = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={!user || (user?._id===extractedProduct?.createdBy?._id)?true:false}
-              onClick={() => setIsPopupOpen(user?true:false)}
+              onClick={priceConfiguration}
               className="mt-4 w-full bg-blue-700 text-white p-2 rounded flex items-center justify-center hover:bg-blue-600"
             >
               <ShoppingCart className="mr-2" /> Buy Now

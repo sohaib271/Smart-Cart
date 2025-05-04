@@ -10,7 +10,8 @@ const CustomerSupport=require("./routes/customersupport");
 const CartRouter=require("./routes/cart");
 const ReviewRouter=require("./routes/review");
 const ProductRouter=require("./routes/product")
-const OrderRouter=require("./routes/order")
+const OrderRouter=require("./routes/order");
+const Payment=require("./routes/payment")
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(()=> console.log("Database Connected"));
@@ -37,6 +38,7 @@ app.use("/order",OrderRouter);
 app.use("/",CustomerSupport);
 app.use("/cart",CartRouter);
 app.use("/review",ReviewRouter);
+app.use("/stripe",Payment);
 
 
 const Port=process.env.PORT || 8000;

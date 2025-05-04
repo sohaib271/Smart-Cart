@@ -1,27 +1,35 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaMoneyBillWave, FaCreditCard, FaTimes } from "react-icons/fa";
-import OnlinePayment from "./OnlinePayment";
+
 import ConfirmOrder from "./ConfirmOrder";
 import { Delay } from "./compoAssis/delay";
 import { useLoading } from "./loading/loading";
-const PaymentPopup = ({ setIsPopupOpen,selectedSize,quantity }: {setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>;selectedSize: string;quantity:number;
+const PaymentPopup = ({ setIsPopupOpen,selectedSize,quantity,payForOne }: {setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>;selectedSize: string;quantity:number;payForOne:()=>void;
  }) => {
-  const [onlinePay,setOnlinePay]=useState<boolean>(false)
   const [cash,setCash]=useState<boolean>(false);
+  const [ePay,setEpay]=useState<boolean>(false);
+  const [confirm,setConfirm]=useState<boolean>(false);
 const {startLoading,stopLoading}=useLoading();
-  const forOnlinePay=()=>{
-    setOnlinePay(true);
-  }
+  
   const forCash=async()=>{
    startLoading();
     await Delay(2);
     setCash(true)
+    setConfirm(true);
+    stopLoading();
+  }
+
+  const online=async()=>{
+    startLoading();
+    await Delay(1);
+    setEpay(true);
+    setConfirm(true)
     stopLoading();
   }
   return <>
    <div className="absolute inset-0 bg-white bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-  {onlinePay==true?( <OnlinePayment setIsPopupOpen={setIsPopupOpen}/>): cash==true ?( <ConfirmOrder quantity={quantity} selectedSize={selectedSize}  setIsPopupOpen={setIsPopupOpen}/>) :
+  { confirm==true?( <ConfirmOrder payForOne={payForOne} cash={cash} ePay={ePay} quantity={quantity} selectedSize={selectedSize}  setIsPopupOpen={setIsPopupOpen}/>) :
      <motion.div
      initial={{ opacity: 0, y: -50 }}
      animate={{ opacity: 1, y: 0 }}
@@ -40,8 +48,8 @@ const {startLoading,stopLoading}=useLoading();
        <button onClick={forCash} className="flex items-center gap-2 bg-blue-800  text-white py-2 px-4 rounded-full">
          <FaMoneyBillWave /> Cash on Delivery
        </button>
-       <button disabled onClick={forOnlinePay} className="flex items-center gap-2 bg-blue-800  text-white py-2 px-4 rounded-full">
-         <FaCreditCard />Online Payment feature is under development
+       <button onClick={online} className="flex items-center gap-2 bg-blue-800  text-white py-2 px-4 rounded-full">
+         <FaCreditCard />Pay Online
        </button>
      </div>
    </motion.div>

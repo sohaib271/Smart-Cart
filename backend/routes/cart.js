@@ -21,4 +21,14 @@ router.delete("/deleteFromCart/:id",async(req,res)=>{
   return res.json({message:"Product removed from cart successfully"});
 });
 
+router.delete("/emptycart/:id",async(req,res)=>{
+  await Cart.deleteMany({cartBy:req.params.id});
+  return res.json({success:"Cart emptied"});
+});
+
+router.get("/all",async(req,res)=>{
+  const cart=await Cart.find().populate("productId").populate("Users");
+  return res.json({cart:cart});
+})
+
 module.exports = router;
