@@ -3,7 +3,7 @@ const {Router}=require("express");
 const User=require("../models/buyer");
 
 const router=Router();
-const strip=new stripe.Stripe("sk_test_51RKN9FQaNfqZpifinrN6JD4i6mdiNr3ISfZPGHmpHRMwb9qupFCOehTKT08M2a3yngAbruZi6lLANDPqAUXDQrp600dQQFyxcT");
+const strip=new stripe.Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post("/create-connect-account",async(req,res)=>{
   try {

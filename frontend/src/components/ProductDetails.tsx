@@ -24,7 +24,7 @@ const ProductDetails = () => {
   ? { ...extractedProduct, quantity }
   : null;
 
-const stripePromise = loadStripe('pk_test_51RKN9FQaNfqZpifiwkctIRdGsfb9fI6mKgFneMbJBbF0kU0ka6KhGnKbV3W44I7DE4W1wQ2hvIIiXIur1MWSd2bp00aDWcD8qK');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
   const payForOne=async()=>{
     try {
