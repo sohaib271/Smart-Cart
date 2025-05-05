@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
+
 import { useLoading } from "../loading/loading";
 import { Delay } from "./delay";
 import { useState } from "react";
 const useAddCart=()=>{
   const [error,setError]=useState("");
-  const navigate=useNavigate();
   const {startLoading,isLoading,stopLoading}=useLoading();
   const addToCart=async(userId,productId)=>{
     startLoading()
