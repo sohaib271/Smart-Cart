@@ -13,7 +13,10 @@ const ProductRouter=require("./routes/product")
 const OrderRouter=require("./routes/order");
 const Payment=require("./routes/payment")
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
 .then(()=> console.log("Database Connected"));
 
 if(cluster.isPrimary){
