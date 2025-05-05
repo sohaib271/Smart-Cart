@@ -9,9 +9,9 @@ const AboutUs = () => {
         <ArrowLeft size={20} />
       </button>
       <motion.img
-        src="/customer.webp"
+        src="/myimage.jpg"
         alt="default picture of user"
-        className="w-40 h-40 rounded-full border-4 border-blue-500 shadow-lg"
+        className="w-40 h-30 rounded-full border-4 border-blue-500 shadow-lg"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
