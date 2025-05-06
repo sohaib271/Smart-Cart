@@ -51,7 +51,7 @@ const Footer = () => {
               <Link to="#" className="w-8 h-8 rounded-full bg-eshop-blue-100 flex items-center justify-center text-eshop-blue-600 hover:bg-eshop-blue-600 hover:text-white transition-colors">
                 <Facebook size={16} />
               </Link>
-              <Link to="https://www.google.com" className="w-8 h-8 rounded-full bg-eshop-blue-100 flex items-center justify-center text-eshop-blue-600 hover:bg-eshop-blue-600 hover:text-white transition-colors">
+              <Link to="https://www.linkedin.com/in/sohaib-imran-25787032a/" className="w-8 h-8 rounded-full bg-eshop-blue-100 flex items-center justify-center text-eshop-blue-600 hover:bg-eshop-blue-600 hover:text-white transition-colors">
               <Linkedin  size={16} />
               </Link>
             </div>
@@ -90,13 +90,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="tel:+1234567890" className="text-gray-600 hover:text-eshop-blue-600 transition-colors flex items-center gap-2">
+                <Link to="tel:+92 3060624288" className="text-gray-600 hover:text-eshop-blue-600 transition-colors flex items-center gap-2">
                   <Phone size={16} className="flex-shrink-0" />
                   <span>+92 3060624288</span>
                 </Link>
               </li>
               <li>
-                <Link to="mailto:info@eshop.com" className="text-gray-600 hover:text-eshop-blue-600 transition-colors flex items-center gap-2">
+                <Link to="mailto:sohaibsheikh6199@gmail.com.com" className="text-gray-600 hover:text-eshop-blue-600 transition-colors flex items-center gap-2">
                   <Mail size={16} className="flex-shrink-0" />
                   <span>sohaibsheikh6199@gmail.com</span>
                 </Link>
