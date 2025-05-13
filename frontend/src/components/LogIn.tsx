@@ -3,12 +3,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Delay } from "./compoAssis/delay";
 import useUser from "./compoAssis/userInfo";
 import AlreadyLoggedInPopup from "./compoAssis/alert";
 import SpinnerContainer from "./SpinnerContainer";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
-import { useLoading } from "./loading/loading";
 type FormData = {
   email: string;
   password: string;

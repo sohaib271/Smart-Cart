@@ -49,7 +49,7 @@ const ProductForm = () => {
     formData.append("brand", data.brand);
     formData.append("priceRange", data.priceRange);
     formData.append("contactNo",data.contactNo)
-    const response = await fetch("http://localhost:8000/product/form", { method: "POST", body: formData });
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/product/form`, { method: "POST", body: formData });
     const result = await response.json();
     if (result.success) navi("/sellerprofile");
     else setError(result.error);

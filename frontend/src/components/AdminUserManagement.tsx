@@ -4,7 +4,7 @@ const AdminUsers = () => {
   const [error,setError]=useState("");
   useEffect(()=>{
     const fetchAllUsers=async()=>{
-      const response=await fetch("http://localhost:8000/user/all");
+      const response=await fetch(`${import.meta.env.VITE_API_URL}/user/all`);
       const result=await response.json();
       if(result){
         try {

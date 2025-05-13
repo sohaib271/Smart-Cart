@@ -17,7 +17,7 @@ const useAddCart=()=>{
     if(rating==0 || review=="") setError("Please rate");
    else {startLoading();
     await Delay(2);
-    const response=await fetch(`http://localhost:8000/review/add`,{method:"POST", headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:productId,reviewedBy:userId,review:review,rating:rating})});
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/review/add`,{method:"POST", headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:productId,reviewedBy:userId,review:review,rating:rating})});
     const result=await response.json();
     if(result) stopLoading();
     return result;}

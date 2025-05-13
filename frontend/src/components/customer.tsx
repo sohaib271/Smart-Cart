@@ -10,7 +10,7 @@ const CustomerSupportChat = () => {
     const newMessage = { role: "user", text: input };
     setMessages([...messages, newMessage]);
     try {
-      const response = await fetch("http://localhost:8000/customersupport", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/customersupport`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userMessage: input }),

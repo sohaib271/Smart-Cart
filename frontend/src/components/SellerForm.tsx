@@ -2,8 +2,6 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { User, Mail, Lock, Store, CreditCard,MapPin } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Delay } from "./compoAssis/delay";
 import { useLoading } from "./loading/loading";
 import SpinnerContainer from "./SpinnerContainer";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
@@ -42,7 +40,7 @@ const SellerSignup = () => {
         formData.append("storeLogo", data.storeLogo[0]);
       }
   
-      const response = await fetch("http://localhost:8000/user/signup", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/signup`, {
         method: "POST",
         body: formData,
       });

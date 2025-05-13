@@ -43,7 +43,7 @@ const confirmOrder = async () => {
     }else {
       startLoading();
       await Delay(1);
-      const response = await fetch("http://localhost:8000/order", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(placedOrder),

@@ -60,7 +60,7 @@ const navi=useNavigate();
                   <Heart size={16} className="text-eshop-blue-600" />
                 </button>
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  {(product.createdBy._id !== user?._id && user) && <button onClick={()=>addToCart(user?._id,product._id,`/cart/${user?._id}`)} className="w-full bg-white text-eshop-blue-600 font-medium py-2 rounded-lg flex items-center justify-center gap-2">
+                  {(product.createdBy._id !== user?._id && user) && <button onClick={()=>addToCart(user?._id,product._id)} className="w-full bg-white text-eshop-blue-600 font-medium py-2 rounded-lg flex items-center justify-center gap-2">
                     <ShoppingCart size={16} />
                     Add to Cart
                   </button>}
