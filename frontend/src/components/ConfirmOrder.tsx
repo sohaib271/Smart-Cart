@@ -79,6 +79,7 @@ return (
                 type="text"
                 placeholder="City, Town, Street, House No."
                 value={address}
+                required
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full outline-none"
               />
