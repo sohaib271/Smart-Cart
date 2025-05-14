@@ -32,7 +32,7 @@ const AccountSuccess=()=>{
     exit={{ opacity: 0, y: -50 }}
     transition={{ duration: 0.3 }}
   >
-      <div className="bg-white rounded-lg p-6 max-w-md mx-4 transform transition-all animate-popIn">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 sm:mx-auto transform transition-all animate-popIn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       <button className="absolute top-2 right-1 text-xl  text-gray-600 hover:text-gray-800">                      <FaTimes />
       </button>
         <div className="flex flex-col items-center space-y-4">
