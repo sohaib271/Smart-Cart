@@ -52,6 +52,7 @@ const ProductForm = () => {
 
     if(!data.features.includes(",")){
       setError("Please separate features by ','");
+      stopLoading();
     }else{
        const response = await fetch(`${import.meta.env.VITE_API_URL}/product/form`, { method: "POST", body: formData });
     const result = await response.json();
