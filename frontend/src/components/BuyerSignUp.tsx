@@ -32,8 +32,8 @@ const BuyerSignUp: React.FC = () => {
         body: formData,
       });
       const result = await response.json();
-      if (result.error) {
-        setError(result.error);
+      if (result.err) {
+        setError(result.err);
       } else {
         navigateToPages("/log in");
       }

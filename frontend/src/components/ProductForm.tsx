@@ -48,12 +48,18 @@ const ProductForm = () => {
     formData.append("targetedAudience", data.targetedAudience);
     formData.append("brand", data.brand);
     formData.append("priceRange", data.priceRange);
-    formData.append("contactNo",data.contactNo)
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/product/form`, { method: "POST", body: formData });
+    formData.append("contactNo",data.contactNo);
+
+    if(!data.features.includes(",")){
+      setError("Please separate features by ','");
+    }else{
+       const response = await fetch(`${import.meta.env.VITE_API_URL}/product/form`, { method: "POST", body: formData });
     const result = await response.json();
     if (result.success) navi("/sellerprofile");
     else setError(result.error);
     stopLoading();
+    }
+   
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 relative">
@@ -107,6 +113,7 @@ const ProductForm = () => {
               <FiCheckSquare className="text-gray-500 mr-2" />
               <input {...register("features", { required: "Features are required" })} className="w-full outline-none" />
             </div>
+            <p className='text-red-500 text-sm'>{error}</p>
             {errors.features && <p className="text-red-500 text-sm">{errors.features.message}</p>}
           </div>
           <div>

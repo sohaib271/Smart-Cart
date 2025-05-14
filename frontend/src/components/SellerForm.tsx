@@ -39,13 +39,14 @@ const SellerSignup = () => {
       if (data.storeLogo?.length) {
         formData.append("storeLogo", data.storeLogo[0]);
       }
-  
+      
       const response = await fetch(`${import.meta.env.VITE_API_URL}/user/signup`, {
         method: "POST",
         body: formData,
       });
       const result=await response.json();
-      if(!result.error) setError(""); navigateToPages("/log in");
+      if(result.err) setError(result.err); 
+      else navigateToPages("/log in");
     } catch (error) {
       setError(error.message);
     } finally {
