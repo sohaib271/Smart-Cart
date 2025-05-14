@@ -14,6 +14,7 @@ const ProductDetails = () => {
   const {data:allOrders}=useOrders();
   const {data:reviews}=useReviews();
   const {data:user}=useUser();
+  const [err,setErr]=useState<string>("");
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); 
   const { productId } = useParams();
   const noOfSolds=allOrders?.filter(o=>o.productIdNumber._id===productId && o.orderStatus=="delivered").length;
@@ -41,7 +42,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
      
   
       const data = await res.json();
-      console.log(data)
   
       const { error } = await stripe.redirectToCheckout({
         sessionId: data.id
@@ -76,7 +76,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
   const priceConfiguration=()=>{
     if(productWithQuantity.price * productWithQuantity.quantity <= 700){
-      console.log("Please make purchase above Rs 700.")
+      setErr("Please make purchase above Rs 700.")
     }else{
       setIsPopupOpen(user?true:false)
     }
@@ -144,6 +144,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
               <ShoppingCart className="mr-2" /> Buy Now
             </motion.button>
             {!user?<p className="text-red-500 mt-2">Log in to buy best products at best rates.</p>:user?._id==extractedProduct?.createdBy?._id?<p className="text-red-500 mt-2">You cannot buy your own product</p>:<p></p>}
+            <p className="text-red-500 mt-2">{err}</p>
             <div className="flex p-2 justify-end text-gray-500 text-sm">
               <Truck size={20} />
               <p className="ms-1">Free Shipping</p>
