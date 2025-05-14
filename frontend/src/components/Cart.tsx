@@ -57,7 +57,7 @@ const pay = async () => {
 const removeItem = async (id) => {
 startLoading();
 await Delay(1);
-const response=await fetch(`http://localhost:8000/cart/deleteFromCart/${id}`,{method:"DELETE",headers:{"Content-Type":"application/json"}});
+const response=await fetch(`${import.meta.env.VITE_API_URL}/cart/deleteFromCart/${id}`,{method:"DELETE",headers:{"Content-Type":"application/json"}});
 const result=await response.json();
 if(result.message)  stopLoading();
 };
