@@ -17,10 +17,11 @@ const ProductDetails = () => {
   const [err,setErr]=useState<string>("");
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); 
   const { productId } = useParams();
-  const noOfSolds=allOrders?.filter(o=>o?.productIdNumber?._id===productId && o?.orderStatus=="delivered").length;
+  const noOfSold=allOrders?.filter(o=>o?.productIdNumber?._id===productId && o?.orderStatus=="delivered").length;
   const requiredProduct = products?.filter(p => p?._id === productId);
   const extractedProduct = requiredProduct?.[0];
-  const [quantity, setQuantity] = useState<number>(1); 
+  const [quantity, setQuantity] = useState<number>(1);
+  const noOfSolds=noOfSold*quantity; 
   const productWithQuantity = extractedProduct
   ? { ...extractedProduct, quantity }
   : null;
