@@ -66,7 +66,7 @@ const userProfile=()=>{
 </div>
 
         <nav className="hidden md:flex items-center space-x-8">
-          {["Home", "Shop", user?.role === "ADMIN" ? "Admin" : "", "New Arrivals", "Featured", "About Us", (user?.role === "Buyer") || !user ? "Become a Seller" : "", !user ? "Log in" : ""].filter(Boolean).map((item,index) => (
+          {["Home", "Shop", user?.role === "ADMIN" ? "Admin" : "", "New Arrivals", "Featured", "About Us", !user ? "Become a Seller" : "", !user ? "Log in" : ""].filter(Boolean).map((item,index) => (
             <Link key={index} to={`/${item.toLowerCase()}`} className="text-gray-700 hover:text-eshop-blue-600 font-medium text-sm tracking-wide transition-colors duration-200">
               {item}
             </Link>
@@ -132,7 +132,7 @@ const userProfile=()=>{
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-40 animate-fade-in">
           <div className="flex flex-col p-6 space-y-6">
-            {["Home", "Shop", "New Arrivals", "Featured", "About Us", !user ? "Become a Seller" : "", !user ? "Log In" : ""].map(
+            {["Home", "Shop", "New Arrivals", "Featured", "About Us", !user || !token ? "Become a Seller" : "", !user ? "Log In" : ""].map(
               (item, i) => (
                 <Link
                   key={i}
