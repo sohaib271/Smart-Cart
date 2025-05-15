@@ -17,14 +17,24 @@ const ProductDetails = () => {
   const [err,setErr]=useState<string>("");
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); 
   const { productId } = useParams();
-  const noOfSold=allOrders?.filter(o=>o?.productIdNumber?._id===productId && o?.orderStatus=="delivered").length;
   const requiredProduct = products?.filter(p => p?._id === productId);
   const extractedProduct = requiredProduct?.[0];
   const [quantity, setQuantity] = useState<number>(1);
-  const noOfSolds=noOfSold*quantity; 
   const productWithQuantity = extractedProduct
   ? { ...extractedProduct, quantity }
   : null;
+
+  let totalOrders=0;
+  let orderQuantity=0;
+
+  allOrders.forEach(o => {
+    if(o?.productIdNumber?._id===productId && o?.orderStatus=="delivered"){
+      totalOrders++;
+      orderQuantity+=o?.quantity || 1;
+    }
+  });
+
+  const noOfSolds=totalOrders * quantity;
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -40,7 +50,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
         body: JSON.stringify({ productWithQuantity }),
       });
   
-     
   
       const data = await res.json();
   
