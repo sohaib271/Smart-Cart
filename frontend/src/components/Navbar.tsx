@@ -76,9 +76,9 @@ const userProfile=()=>{
           <div className="relative dropdown">
             <button aria-label="dropdown" onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2 text-gray-700 font-medium text-sm tracking-wide transition-colors duration-200">
               {user.role === "Seller" ? (
-                <img src={user.storeLogo} alt="Store Logo" loading="lazy" className="w-8 h-8 ms-2 rounded-full" />
+                <img src={user?.storeLogo} alt="Store Logo" loading="lazy" className="w-8 h-8 ms-2 rounded-full" />
               ) : (
-                <span className="ms-2">{user.name}</span>
+                <span className="ms-2">{user?.name}</span>
               )}
               <ChevronDown size={16} className="text-gray-600" />
             </button>
@@ -132,7 +132,7 @@ const userProfile=()=>{
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-40 animate-fade-in">
           <div className="flex flex-col p-6 space-y-6">
-            {["Home", "Shop", "New Arrivals", "Featured", "About Us", (user?.role === "Buyer") || !user || !token ? "Become a Seller" : "", !user ? "Log In" : ""].map(
+            {["Home", "Shop", "New Arrivals", "Featured", "About Us", !user ? "Become a Seller" : "", !user ? "Log In" : ""].map(
               (item, i) => (
                 <Link
                   key={i}

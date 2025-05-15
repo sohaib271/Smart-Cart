@@ -26,9 +26,9 @@ const SellerProductsPage: React.FC = () => {
  const {data:all}=useAllProducts();
 
 const {data:user}=useUser();
- const products=all?.filter(p => p.createdBy?._id===(sellerId || user?._id));
+ const products=all?.filter(p => p?.createdBy?._id===(sellerId || user?._id));
  const store = {
-  name: sellerId?products?.[0].createdBy?.storeName:"You",
+  name: sellerId?products?.[0]?.createdBy?.storeName:"You",
   profilePic:products?.[0]?.createdBy?.storeLogo || user?.storeLogo,
 };
   const groupedProducts: Record<string, Product[]> = products?.reduce((acc, product) => {

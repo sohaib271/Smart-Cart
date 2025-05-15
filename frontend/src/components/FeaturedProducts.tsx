@@ -18,7 +18,7 @@ const [activeCategory, setActiveCategory] = useState("All");
     if (activeCategory === "All") {
       setDisplayedProducts(products);
     } else {
-      setDisplayedProducts(products?.filter(p => p.category === activeCategory));
+      setDisplayedProducts(products?.filter(p => p?.category === activeCategory));
     }
   }, [activeCategory,products]);
   useEffect(() => {

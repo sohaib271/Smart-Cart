@@ -6,7 +6,7 @@ import useOrderDetails from './compoAssis/ordersHook';
 const SellerOrdersPage: React.FC = () => {
  const {isLoading,orderDetails,allOrder}=useOrderDetails();
   const {data:user}=useUser();
-  const getOrderByEmail=allOrder?.filter(order => order.productIdNumber.createdBy===user?._id && order.buyerId!==user?._id);
+  const getOrderByEmail=allOrder?.filter(order => order?.productIdNumber?.createdBy===user?._id && order?.buyerId!==user?._id);
 
   const getStatusIcon = (status: string) => {
     switch (status) {

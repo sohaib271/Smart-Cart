@@ -7,7 +7,7 @@ import NoProductOrder from "./compoAssis/NoProductOrder";
 const BuyerOrders = () => {
   const {isLoading,orderDetails,allOrder}=useOrderDetails();
   const {data:user}=useUser();
-  const myOrders=allOrder?.filter(order => order.buyerId===user?._id && order.buyerId!==order.productIdNumber.createdBy);
+  const myOrders=allOrder?.filter(order => order?.buyerId===user?._id && order?.buyerId!==order?.productIdNumber?.createdBy);
   return <>
  <div className={`min-h-screen ${isLoading && "fixed inset-0"} p-6 bg-gray-100`}>
  <SpinnerContainer/>

@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useLoading } from "./loading/loading";
 import SpinnerContainer from "./SpinnerContainer";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
+import useUser from "./compoAssis/userInfo";
+import AlreadyLoggedInPopup from "./compoAssis/alert";
 
 interface SellerFormData {
   name: string;
@@ -21,6 +23,7 @@ const SellerSignup = () => {
   const {startLoading,stopLoading}=useLoading();
   const [error,setError]=useState("")
   const {navigateToPages}=useSelectedProduct();
+  const {data:user}=useUser();
 
 
   const onSubmit = async (data: any) => {
@@ -58,6 +61,7 @@ const SellerSignup = () => {
   return (
     <div className="flex items-center p-6 justify-center min-h-screen bg-gray-100">
     <SpinnerContainer/>
+    {user && <AlreadyLoggedInPopup/>}
       <motion.div 
         initial={{ opacity: 0, y: -50 }} 
         animate={{ opacity: 1, y: 0 }} 
