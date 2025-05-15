@@ -11,9 +11,9 @@ const SellerDashboard: React.FC = () => {
  const {navigateToPages,handleConnectStripe}=useSelectedProduct();
   const storeName: string = user?.role==="Seller" && user?.storeName;
   const {allOrder}=useOrderDetails();
-   const myOrders=allOrder?.filter(order => order.productIdNumber.createdBy===user?._id);
+   const myOrders=allOrder?.filter(order => order?.productIdNumber?.createdBy===user?._id);
 
-  const fil=myOrders?.filter(order => order.orderStatus==="waiting" || order.orderStatus==="shipped");
+  const fil=myOrders?.filter(order => order?.orderStatus==="waiting" || order?.orderStatus==="shipped");
   const totalSales = myOrders?.filter((order) => order.orderStatus==="delivered").reduce((sum, product) =>{
     const quantity = Number(product.quantity) || 1; 
     return sum + Number(product.orderPrice) * quantity;
