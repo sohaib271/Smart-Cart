@@ -34,7 +34,7 @@ const ProductDetails = () => {
     }
   });
 
-  const noOfSolds=totalOrders * quantity;
+  const noOfSolds=totalOrders * orderQuantity;
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
