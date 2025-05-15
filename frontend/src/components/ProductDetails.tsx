@@ -27,7 +27,7 @@ const ProductDetails = () => {
   let totalOrders=0;
   let orderQuantity=0;
 
-  allOrders.forEach(o => {
+  allOrders?.forEach(o => {
     if(o?.productIdNumber?._id===productId && o?.orderStatus=="delivered"){
       totalOrders++;
       orderQuantity+=o?.quantity || 1;
