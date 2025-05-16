@@ -17,7 +17,7 @@ const ProductDetails = () => {
   const [err,setErr]=useState<string>("");
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); 
   const { productId } = useParams();
-  const requiredProduct = products.filter(p => p._id === productId);
+  const requiredProduct = products?.filter(p => p?._id === productId);
   const extractedProduct = requiredProduct?.[0];
   const [quantity, setQuantity] = useState<number>(1);
   const productWithQuantity = extractedProduct
@@ -65,8 +65,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       console.error('Payment error:', err);
     }
   }
-
-  if(!products) return <SpinnerContainer/>
 
   const [selectedSize, setSelectedSize] = useState<string>((extractedProduct?.category==="Shoes" || extractedProduct?.category==="Clothing")?"Medium":"None"); 
   const review=reviews?.filter(r => r.productId===productId);
