@@ -8,10 +8,11 @@ import Navbar from "./Navbar";
 import useAddCart from "./compoAssis/cart";
 import useUser from "./compoAssis/userInfo";
 import SpinnerContainer from "./SpinnerContainer";
+import Spinner from "./Spinner";
 const ProductsPage = () => {
   const {selectProduct}=useSelectedProduct();
   const {addToCart}=useAddCart();
-  const { data: allProducts } = useAllProducts();
+  const { data: allProducts,isLoading } = useAllProducts();
   const [searchTerm, setSearchTerm] = useState("");
   const {data:user}=useUser();
 const navi=useNavigate();
@@ -30,6 +31,8 @@ const navi=useNavigate();
       }
     }
   };
+
+  if(isLoading) return <Spinner/>
   return (
     <>
     <Navbar />
