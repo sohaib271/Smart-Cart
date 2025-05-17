@@ -6,7 +6,6 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import ProductShowcase from "@/components/ProductShowcase";
 import RandomProductViewer from "@/components/RandomProductViewer";
 import Footer from "@/components/Footer";
-import {  useLoading } from "@/components/loading/loading";
 import SpinnerContainer from "@/components/SpinnerContainer";
 import useAllProducts from "@/components/compoAssis/products";
 import Spinner from "@/components/Spinner";
