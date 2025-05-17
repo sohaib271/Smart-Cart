@@ -2,6 +2,7 @@ import { Clock, Truck, CheckCircle } from 'lucide-react';
 import useUser from './compoAssis/userInfo';
 import Spinner from './Spinner';
 import useOrderDetails from './compoAssis/ordersHook';
+import SpinnerContainer from './SpinnerContainer';
 
 const SellerOrdersPage: React.FC = () => {
  const {isLoading,orderDetails,allOrder}=useOrderDetails();
@@ -37,11 +38,7 @@ const SellerOrdersPage: React.FC = () => {
 
   return (
     <div className={`min-h-screen ${isLoading && "fixed inset-0"} bg-white p-6`}>
-      {isLoading && (
-    <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-70 z-50">
-      <Spinner />
-    </div>
-  )}
+   <SpinnerContainer/>
       <h1 className="text-3xl font-bold text-blue-900 mb-8">{user?.name}'s Orders</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {getOrderByEmail?.map((order) => (
