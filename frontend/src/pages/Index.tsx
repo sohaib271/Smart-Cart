@@ -8,6 +8,8 @@ import RandomProductViewer from "@/components/RandomProductViewer";
 import Footer from "@/components/Footer";
 import {  useLoading } from "@/components/loading/loading";
 import SpinnerContainer from "@/components/SpinnerContainer";
+import useAllProducts from "@/components/compoAssis/products";
+import Spinner from "@/components/Spinner";
 
 
 
@@ -36,7 +38,8 @@ const Index = () => {
       document.removeEventListener("click", handleSmoothScroll);
     };
   }, []);
-  const {isLoading}=useLoading();
+  const {isLoading}=useAllProducts();
+  if(isLoading) return <Spinner/>
   return (
     <div className={`min-h-screen bg-white ${isLoading && "fixed"}`}>
      <SpinnerContainer/>
