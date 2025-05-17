@@ -5,6 +5,7 @@ import { FaTimes } from "react-icons/fa";
 import useOrderDetails from "./compoAssis/ordersHook";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
 import SpinnerContainer from "./SpinnerContainer";
+import Spinner from "./Spinner";
 const SellerDashboard: React.FC = () => {
   const {data:user}=useUser();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -19,7 +20,7 @@ const SellerDashboard: React.FC = () => {
     return sum + Number(product.orderPrice) * quantity;
   } , 0);
 
-  if(isLoading) return <SpinnerContainer/>;
+  if(isLoading) return <Spinner/>;
   
   return (
     <div className="flex h-screen">
