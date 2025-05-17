@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import useOrders from "./orders";
 import { useLoading } from "../loading/loading";
 const useOrderDetails=()=>{
-  const {data:allOrder}=useOrders();
-  const {startLoading,stopLoading,isLoading}=useLoading();
+  const {data:allOrder,isLoading}=useOrders();
+  const {startLoading,stopLoading}=useLoading();
   const navi=useNavigate();
   const orderDetails=async (id,time)=>{
     startLoading();

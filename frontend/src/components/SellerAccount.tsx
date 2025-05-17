@@ -8,9 +8,9 @@ import SpinnerContainer from "./SpinnerContainer";
 const SellerDashboard: React.FC = () => {
   const {data:user}=useUser();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
- const {navigateToPages,handleConnectStripe}=useSelectedProduct();
+ const {navigateToPages}=useSelectedProduct();
   const storeName: string = user?.role==="Seller" && user?.storeName;
-  const {allOrder}=useOrderDetails();
+  const {allOrder,isLoading}=useOrderDetails();
    const myOrders=allOrder?.filter(order => order?.productIdNumber?.createdBy===user?._id);
 
   const fil=myOrders?.filter(order => order?.orderStatus==="waiting" || order?.orderStatus==="shipped");
@@ -18,6 +18,8 @@ const SellerDashboard: React.FC = () => {
     const quantity = Number(product.quantity) || 1; 
     return sum + Number(product.orderPrice) * quantity;
   } , 0);
+
+  if(isLoading) return <SpinnerContainer/>;
   
   return (
     <div className="flex h-screen">
@@ -42,9 +44,6 @@ const SellerDashboard: React.FC = () => {
           </button>
           <button onClick={() => navigateToPages("/sell")} className="flex items-center space-x-2 hover:text-blue-400">
             <FiShoppingBag /> <span>Add Product</span>
-          </button>
-          <button onClick={() => handleConnectStripe(user?._id)} className="flex items-center space-x-2 hover:text-blue-400">
-            <FiShoppingBag /> <span>Connect Stripe</span>
           </button>
         </nav>
       </div>
