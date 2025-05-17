@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 import useOrderDetails from "./compoAssis/ordersHook";
 import SpinnerContainer from "./SpinnerContainer";
 import NoProductOrder from "./compoAssis/NoProductOrder";
+import Spinner from "./Spinner";
 const BuyerOrders = () => {
   const {isLoading,orderDetails,allOrder}=useOrderDetails();
   const {data:user}=useUser();
   const myOrders=allOrder?.filter(order => order?.buyerId===user?._id && order?.buyerId!==order?.productIdNumber?.createdBy);
+
+  if(isLoading) return <Spinner/>
   return <>
  <div className={`min-h-screen ${isLoading && "fixed inset-0"} p-6 bg-gray-100`}>
  <SpinnerContainer/>

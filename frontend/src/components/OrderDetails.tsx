@@ -8,12 +8,13 @@ import SpinnerContainer from './SpinnerContainer';
 import { useLoading } from './loading/loading';
 import ReviewPopup from './Review';
 import useReviews from './compoAssis/review';
+import Spinner from './Spinner';
 const OrderDetailPage: React.FC = () => {
   const [showReviewPopup, setShowReviewPopup] = useState(false);
   const [popUp,setPopUp]=useState(false);
-const {startLoading,stopLoading,isLoading}=useLoading();
+const {startLoading,stopLoading}=useLoading();
   const {data:user}=useUser();
-  const {allOrder}=useOrderDetails();
+  const {allOrder,isLoading}=useOrderDetails();
   const {data:allReviews}=useReviews();
   const [error,setError]=useState("")
   const {orderId}=useParams();
@@ -71,9 +72,11 @@ const {startLoading,stopLoading,isLoading}=useLoading();
     shipped: 'bg-yellow-100 text-yellow-800',
     delivered: 'bg-green-100 text-green-800'
   };
+
+  if(isLoading) return <Spinner/>
   return (
     <>
-      <div className={`min-h-screen ${isLoading && "fixed inset-0"} bg-white p-6 md:p-8`}>
+      <div className={`min-h-screen  bg-white p-6 md:p-8`}>
            {(showReviewPopup && popUp) && <ReviewPopup setPopUp={setPopUp} productId={reqOrder?.productIdNumber} reviewedBy={user?._id} />}
       <SpinnerContainer/>
       <div className="max-w-4xl mx-auto">

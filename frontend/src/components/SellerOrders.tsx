@@ -33,6 +33,8 @@ const SellerOrdersPage: React.FC = () => {
     }
   };
 
+  if(isLoading) return <Spinner/>
+
   return (
     <div className={`min-h-screen ${isLoading && "fixed inset-0"} bg-white p-6`}>
       {isLoading && (

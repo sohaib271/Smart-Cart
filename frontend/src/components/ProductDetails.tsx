@@ -9,8 +9,9 @@ import SpinnerContainer from "./SpinnerContainer";
 import useUser from "./compoAssis/userInfo";
 import useOrders from "./compoAssis/orders";
 import useReviews from "./compoAssis/review";
+import Spinner from "./Spinner";
 const ProductDetails = () => {  
-  const { data: products } = useAllProducts();
+  const { data: products,isLoading } = useAllProducts();
   const {data:allOrders}=useOrders();
   const {data:reviews}=useReviews();
   const {data:user}=useUser();
@@ -91,6 +92,8 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       setIsPopupOpen(user?true:false)
     }
   }
+
+  if(isLoading) return <Spinner/>
   return (
     <>
       {(isPopupOpen) && <PaymentPopup payForOne={payForOne} selectedSize={selectedSize} quantity={quantity} setIsPopupOpen={setIsPopupOpen} />}
