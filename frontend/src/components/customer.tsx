@@ -19,7 +19,7 @@ const CustomerSupportChat = () => {
       if (result.botResponse) {
         setMessages((prev) => [
           ...prev,
-          { role: "bot", text: result.botResponse }, // Correct response handling
+          { role: "bot", text: result.botResponse },
         ]);
       }
     } catch (error) {

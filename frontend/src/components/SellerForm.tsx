@@ -96,7 +96,7 @@ const SellerSignup = () => {
               <Mail className="text-gray-500 mr-2" />
               <input
                 type="email"
-                {...register("email", { required: "Email is required" })}
+                {...register("email", { required: "Email required" })}
                 className="w-full outline-none"
               />
             </div>
@@ -108,7 +108,7 @@ const SellerSignup = () => {
               <Lock className="text-gray-500 mr-2" />
               <input
                 type="password"
-                {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
+                {...register("password", { required: "Password required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
                 className="w-full outline-none"
               />
             </div>
@@ -120,7 +120,7 @@ const SellerSignup = () => {
               <MapPin className="text-gray-500 mr-2" />
               <input
                 type="text"
-                {...register("address", { required: "Address is required" })}
+                {...register("address", { required: "Address required" })}
                 className="w-full outline-none"
               />
             </div>
@@ -130,7 +130,7 @@ const SellerSignup = () => {
             <label className="block text-gray-700">Store Logo</label>
             <input
               type="file"
-              {...register("storeLogo")}
+              {...register("storeLogo",{required:"Logo Required"})}
               className="w-full p-2 border rounded"
             />
           </div>
@@ -139,7 +139,7 @@ const SellerSignup = () => {
             <div className="flex items-center border rounded p-2">
               <CreditCard className="text-gray-500 mr-2" />
               <select
-                {...register("paymentMethod", { required: "Payment m is required" })}
+                {...register("paymentMethod", { required: "Payment method required" })}
                 className="w-full outline-none"
               >
                 <option value="jazzcash">Jazz Cash</option>

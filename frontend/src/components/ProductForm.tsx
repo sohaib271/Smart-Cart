@@ -29,7 +29,7 @@ const ProductForm = () => {
 
   const navi = useNavigate();
   const { data: user } = useUser();
-  const categories = ["Computing", "Audio", "Wearable", "Gadgets", "Clothing", "Sports", "Mobile Accessories", "Kithen Use", "Skin Care"];
+  const categories = ["Computing", "Audio", "Wearable", "Gadgets", "Clothing", "Sports", "Mobile Accessories", "Kithen Use", "Skin Care","Perfume & Fragrances"];
   const useCases = ["Gaming", "Work", "Travel", "Daily Use", "Professional", "Events"];
   const audiences = ["Students", "Gamers", "Professionals", "Travelers", "Athletes","Men", "Women", "Kids", "All"];
   const priceRange=["Budget","Mid-Range","Premium"]
@@ -161,7 +161,7 @@ const ProductForm = () => {
               <FiImage className="text-gray-500 mr-2" />
               <input
                 type="file"
-                {...register("productImage", { required: "Product image is required" })}
+                {...register("productImage", { required: "Product image required" })}
                 className="w-full"
               />
             </div>

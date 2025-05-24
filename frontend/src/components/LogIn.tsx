@@ -20,7 +20,8 @@ const Login: React.FC = () => {
   } = useForm<FormData>();
   const [showPassword, setShowPassword] = useState(false);
   const {navigateToPages}=useSelectedProduct();
-  const [error,setError]=useState("")
+  const [error,setError]=useState("");
+  
   const onSubmit: SubmitHandler<FormData> = async(data) => {
       const response=await fetch(`${import.meta.env.VITE_API_URL}/user/login`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
    const result=await response.json();

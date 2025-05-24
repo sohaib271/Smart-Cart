@@ -13,7 +13,7 @@ const {selectProduct,navigateToPages}=useSelectedProduct();
 const [activeCategory, setActiveCategory] = useState("All");
   const [displayedProducts, setDisplayedProducts] = useState(products);
   const [loaded, setLoaded] = useState(false);
-  const categories = ["All", "Audio", "Wearable", "Computing", "Gadgets", "Sports", "Clothing","Skin Care"];
+  const categories = ["All", "Audio", "Wearable", "Computing", "Gadgets", "Sports", "Clothing","Skin Care","Perfume & Fragrances"];
   useEffect(() => {
     if (activeCategory === "All") {
       setDisplayedProducts(products);
