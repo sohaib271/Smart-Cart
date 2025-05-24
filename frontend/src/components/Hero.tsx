@@ -6,7 +6,7 @@ const Hero = () => {
   const [loaded, setLoaded] = useState(false);
  const {data:products}=useAllProducts();
  const {navigateToPages}=useSelectedProduct();
- const product=products?.[products[4]];
+ const product=products?.[4];
   useEffect(() => {
     setLoaded(true);
   }, []);
