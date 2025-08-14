@@ -49,7 +49,7 @@ const Hero = () => {
                 ))}
               </div>
               <div className="text-sm text-gray-500">
-                <span className="font-semibold text-gray-900">2,340+</span> people shopping today
+                <span className="font-semibold text-gray-900">0</span> people shopping today
               </div>
             </div>
           </div>
