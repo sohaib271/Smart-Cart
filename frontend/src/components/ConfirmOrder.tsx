@@ -61,7 +61,7 @@ const confirmOrder = async () => {
         body: JSON.stringify(placedOrder),
       });
         const result=await response.json();
-        if(result.status) payForOne();
+        if(result.status && paid) payForOne();
       } 
     }
     stopLoading();
