@@ -57,13 +57,15 @@ const confirmOrder = async () => {
       else if(ePay==true){
         payForOne();
         if(paid){
+          startLoading()
+          await Delay(1);
           const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(placedOrder),
       });
        const result=await response.json();
-       if(result.status) return result.status;
+       if(result.status) stopLoading(); return result.status;
         }        
       } 
     }
