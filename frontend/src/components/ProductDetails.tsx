@@ -57,7 +57,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       const { error } = await stripe.redirectToCheckout({
         sessionId: data.id
       });
-  
       if (error) {
         console.error('Stripe redirect error:', error);
       }

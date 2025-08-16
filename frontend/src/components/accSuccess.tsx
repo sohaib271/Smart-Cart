@@ -3,29 +3,19 @@ import { motion } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
 import useUser from "./compoAssis/userInfo";
-import { useLoading } from "./loading/loading";
-import { Delay } from "./compoAssis/delay";
-import SpinnerContainer from "./SpinnerContainer";
 
-const AccountSuccess=()=>{
+
+type AccountSuccessProps = {
+  setPaid: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const AccountSuccess=({ setPaid }: AccountSuccessProps)=>{
  const {navigateToPages}=useSelectedProduct();
  const {data:user}=useUser();
- const {startLoading,stopLoading}=useLoading();
-
- const emptyCart=async()=>{
-  startLoading();
-  await Delay(2);
-  const response=await fetch(`${import.meta.env.VITE_API_URL}/cart/emptycart/${user?._id}`,{method:"DELETE",headers:{"Content-Type":"application/json"}});
-  const result=await response.json();
-  if(result.success){
-    stopLoading();
-  }
- }
 
   return (
     <>
-    <div className="fabsolute inset-0 bg-white  rounded-2xl shadow-2xl bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-      <SpinnerContainer/>
+    <div className="absolute inset-0 bg-white bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
       <motion.div
     initial={{ opacity: 0, y: -50 }}
     animate={{ opacity: 1, y: 0 }}
@@ -49,7 +39,7 @@ const AccountSuccess=()=>{
             Thanks for choosing our platform.Happy Shopping!
           </p>
           <button onClick={()=>{navigateToPages(`/buyerprofile/${user?._id}`);
-            emptyCart();
+          setPaid(true)
           }}
             className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >

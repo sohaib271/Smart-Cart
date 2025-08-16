@@ -8,9 +8,11 @@ import useAllProducts from "./compoAssis/products";
 import useUser from "./compoAssis/userInfo";
 import { useParams } from "react-router-dom";
 import { useLoading } from "./loading/loading";
+import AccountSuccess from "./accSuccess";
 const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>void;}) => {
   const [address, setAddress] = useState("");
   const [phone,setPhone]=useState("");
+  const [paid,setPaid]=useState(false)
   const [error, setError] = useState("");
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const cancel = () => setIsPopupOpen(false);
@@ -43,14 +45,24 @@ const confirmOrder = async () => {
     }else {
       startLoading();
       await Delay(1);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
+      if (cash==true){
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(placedOrder),
       });
-      const result = await response.json();
-      if (result.status && cash==true) setOrderConfirmed(true);
-      else if(result.status && ePay==true) payForOne();
+        const result = await response.json(); 
+        if(result.status) setOrderConfirmed(true);
+      } 
+      else if(ePay==true){
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(placedOrder),
+      });
+        const result=await response.json();
+        if(result.status) payForOne();
+      } 
     }
     stopLoading();
   };
@@ -58,7 +70,7 @@ return (
     <div className="fixed inset-0 bg-black bg-opacity-50  backdrop-blur-md flex items-center justify-center z-50 p-4 sm:p-6">
       {orderConfirmed ? (
         <SuccessPopup  cancel={cancel} />
-      ) : (
+      ) : paid ? <AccountSuccess setPaid={setPaid} /> : (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
