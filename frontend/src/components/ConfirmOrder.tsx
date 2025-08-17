@@ -9,7 +9,7 @@ import useUser from "./compoAssis/userInfo";
 import { useParams } from "react-router-dom";
 import { useLoading } from "./loading/loading";
 import AccountSuccess from "./accSuccess";
-const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>void;}) => {
+const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>Promise<boolean>;}) => {
   const [address, setAddress] = useState("");
   const [phone,setPhone]=useState("");
   const [paid,setPaid]=useState(false)
@@ -41,36 +41,49 @@ const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOn
   };
 const confirmOrder = async () => {
   if (address.length < 15 || !address.includes(",")) {
-      setError("Invalid Address  Format");
-    }else {
-      startLoading();
-      await Delay(1);
-      if (cash==true){
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
+    setError("Invalid Address Format");
+    return;
+  }
+
+  try {
+    startLoading();
+    await Delay(1);
+
+    // Cash on Delivery
+    if (cash) {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(placedOrder),
       });
-        const result = await response.json(); 
-        if(result.status) setOrderConfirmed(true);
-      } 
-      else if(ePay==true){
-        payForOne();
-        if(paid){
-          startLoading()
-          await Delay(1);
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(placedOrder),
-      });
-       const result=await response.json();
-       if(result.status) stopLoading(); return result.status;
-        }        
-      } 
+      const result = await response.json();
+      if (result.status) {
+        setOrderConfirmed(true);
+      }
     }
+    else if (ePay) {
+      const success = await payForOne(); 
+      if (success) {
+        await Delay(1);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(placedOrder),
+        });
+        const result = await response.json();
+        if (result.status) {
+          setOrderConfirmed(true);
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Order error:", err);
+    setError("Something went wrong. Try again.");
+  } finally {
     stopLoading();
-  };
+  }
+};
+
 return (
     <div className="fixed inset-0 bg-black bg-opacity-50  backdrop-blur-md flex items-center justify-center z-50 p-4 sm:p-6">
       {orderConfirmed ? (
