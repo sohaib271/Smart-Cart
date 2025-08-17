@@ -9,7 +9,7 @@ import useUser from "./compoAssis/userInfo";
 import { useParams } from "react-router-dom";
 import { useLoading } from "./loading/loading";
 import AccountSuccess from "./accSuccess";
-const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>Promise<boolean>;}) => {
+const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>void;}) => {
   const [address, setAddress] = useState("");
   const [phone,setPhone]=useState("");
   const [paid,setPaid]=useState(false)
@@ -62,8 +62,8 @@ const confirmOrder = async () => {
       }
     }
     else if (ePay) {
-      const success = await payForOne(); 
-      if (success) {
+      payForOne(); 
+      if (paid) {
         await Delay(1);
         const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
           method: "POST",
@@ -72,7 +72,7 @@ const confirmOrder = async () => {
         });
         const result = await response.json();
         if (result.status) {
-          setOrderConfirmed(true);
+          console.log("Paid")
         }
       }
     }
