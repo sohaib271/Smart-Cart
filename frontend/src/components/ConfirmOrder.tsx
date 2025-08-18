@@ -8,11 +8,10 @@ import useAllProducts from "./compoAssis/products";
 import useUser from "./compoAssis/userInfo";
 import { useParams } from "react-router-dom";
 import { useLoading } from "./loading/loading";
-import AccountSuccess from "./accSuccess";
+
 const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOne }: { setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>; selectedSize:string;quantity:number;cash:boolean;ePay:boolean;payForOne:()=>void;}) => {
   const [address, setAddress] = useState("");
   const [phone,setPhone]=useState("");
-  const [paid,setPaid]=useState(false)
   const [error, setError] = useState("");
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const cancel = () => setIsPopupOpen(false);
@@ -22,6 +21,7 @@ const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOn
   const {productId} = useParams()
   const requiredProduct = products?.filter(i => i._id === productId);
   const extractedProduct = requiredProduct?.[0];
+ 
   const placedOrder = {
     orderTitle: extractedProduct?.title,
     buyerName: user?.name,
@@ -39,17 +39,15 @@ const ConfirmOrder = ({ setIsPopupOpen, selectedSize,quantity,cash,ePay,payForOn
     cashOnDelivery:cash,
     onlinePay:ePay,
   };
+
 const confirmOrder = async () => {
   if (address.length < 15 || !address.includes(",")) {
     setError("Invalid Address Format");
     return;
   }
-
   try {
     startLoading();
     await Delay(1);
-
-    // Cash on Delivery
     if (cash) {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
         method: "POST",
@@ -62,19 +60,10 @@ const confirmOrder = async () => {
       }
     }
     else if (ePay) {
-      payForOne(); 
-      if (paid) {
-        await Delay(1);
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(placedOrder),
-        });
-        const result = await response.json();
-        if (result.status) {
-          console.log("Paid")
-        }
-      }
+      localStorage.setItem("order", JSON.stringify(placedOrder));
+      await Delay(1);
+      payForOne();
+      
     }
   } catch (err) {
     console.error("Order error:", err);
@@ -88,7 +77,7 @@ return (
     <div className="fixed inset-0 bg-black bg-opacity-50  backdrop-blur-md flex items-center justify-center z-50 p-4 sm:p-6">
       {orderConfirmed ? (
         <SuccessPopup  cancel={cancel} />
-      ) : paid ? <AccountSuccess setPaid={setPaid} /> : (
+      ) : (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

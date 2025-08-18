@@ -3,15 +3,24 @@ import { motion } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import { useSelectedProduct } from "./compoAssis/selectedProduct";
 import useUser from "./compoAssis/userInfo";
+import { Delay } from "./compoAssis/delay";
 
+const AccountSuccess=()=>{
+const {navigateToPages}=useSelectedProduct();
+const {data:user}=useUser();
+const orderDetail=JSON.parse(localStorage.getItem("order"));
+const confirmOrder=async()=>{
+      await Delay(1);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderDetail),
+    });
 
-type AccountSuccessProps = {
-  setPaid: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const AccountSuccess=({ setPaid }: AccountSuccessProps)=>{
- const {navigateToPages}=useSelectedProduct();
- const {data:user}=useUser();
+    const result=await response.json();
+    if (result.status) await navigateToPages(`/buyerprofile/${user?._id}`)
+ }
+ 
 
   return (
     <>
@@ -38,9 +47,7 @@ const AccountSuccess=({ setPaid }: AccountSuccessProps)=>{
           <p className="text-gray-600 text-center">
             Thanks for choosing our platform.Happy Shopping!
           </p>
-          <button onClick={()=>{navigateToPages(`/buyerprofile/${user?._id}`);
-          setPaid(true)
-          }}
+          <button onClick={()=>confirmOrder()}
             className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Continue Shopping
